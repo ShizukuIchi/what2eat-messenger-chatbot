@@ -22,8 +22,8 @@ function verifyRequest(req, res, buf, encoding) {
   let calculated2 = getSignature2(buf2);
   // console.log("X-Hub-Signature:", expected, "Content:", "-" + buf.toString('utf8') + "-");
   console.log("X-Hub-Signature:", expected);
-  console.log("same1? ", calculated)
-  console.log("same2? ", calculated2)
+  // console.log("same1? ", calculated)
+  // console.log("same2? ", calculated2)
   if (expected !== calculated && expected !== calculated2) {
     throw new Error("Invalid signature.");
   } else {
