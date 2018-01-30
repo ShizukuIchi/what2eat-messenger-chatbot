@@ -22,8 +22,12 @@ function webhook(req, res){
           receivedAccountLinking(event);
         } else if (event.postback) {
           receivedPostback(event);
+        } else if (event.delivery) {
+          messageDelivered(event)
+        } else if (event.read) {
+          messageRead(event)
         } else {
-          console.log("Webhook received unknown event: ", event);
+          console.log("unknown event: ", event);
         }
       });
     });
@@ -42,13 +46,20 @@ function receivedMessage(event) {
   const timeOfMessage = event.timestamp;
   const message = event.message;
 
-  console.log(`Receive message from user: ${senderID} to page: ${recipientID} at ${timeOfMessage}:`)
-  console.log(JSON.stringify(message));
+  console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
 }
 
 function receivedPostback(event) {
   console.log('receive postback event:')
   console.log(JSON.stringify(event))
+}
+
+function messageDelivered(event) {
+  console.log('message sent:', event.delivery.mids.toString(), watermark )
+}
+
+function messageRead(event) {
+  console.log('message read:', event.read.watermark)
 }
 
 module.exports = {
