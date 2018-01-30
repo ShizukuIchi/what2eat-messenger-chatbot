@@ -10,6 +10,7 @@ function verifyWebhook(req, res) {
 }
 
 function webhook(req, res){
+  console.log(req.body)
   let data = req.body;
   if (data.object === 'page') {
     data.entry.forEach(function(entry) {
