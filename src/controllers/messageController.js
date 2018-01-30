@@ -1,7 +1,7 @@
 
 function verifyWebhook(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
-    req.query['hub.verify_token'] === process.env.FB_APP_SECRET) {
+    req.query['hub.verify_token'] === process.env.FB_WEBHOOK_VERIFY_TOKEN) {
       res.status(200).send(req.query['hub.challenge']);
   } else {
     console.error("Failed validation. Make sure the validation tokens match.");
@@ -10,7 +10,6 @@ function verifyWebhook(req, res) {
 }
 
 function webhook(req, res){
-  console.log(req.body)
   let data = req.body;
   if (data.object === 'page') {
     data.entry.forEach(function(entry) {

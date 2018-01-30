@@ -5,11 +5,6 @@ const crypto = require('crypto');
 const router = require("./src/routers");
 
 function getSignature(buf) {
-  let hmac = crypto.createHmac("sha1", process.env.FB_PAGE_ACCESS_TOKEN);
-  hmac.update(buf, "utf-8");
-  return "sha1=" + hmac.digest("hex");
-}
-function getSignature2(buf) {
   let hmac = crypto.createHmac("sha1", process.env.FB_APP_SECRET);
   hmac.update(buf, "utf-8");
   return "sha1=" + hmac.digest("hex");
@@ -19,12 +14,7 @@ function verifyRequest(req, res, buf, encoding) {
   const expected = req.headers['x-hub-signature'];
   let buf2 = buf
   let calculated = getSignature(buf);
-  let calculated2 = getSignature2(buf2);
-  // console.log("X-Hub-Signature:", expected, "Content:", "-" + buf.toString('utf8') + "-");
-  console.log("X-Hub-Signature:", expected);
-  console.log("same1? ", calculated)
-  console.log("same2? ", calculated2)
-  if (expected !== calculated && expected !== calculated2) {
+  if (expected !== calculated) {
     throw new Error("Invalid signature.");
   } else {
     console.log("Valid signature!");
