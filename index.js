@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const router = require("./src/routers");
 
 function getSignature(buf) {
-  let hmac = crypto.createHmac("sha1", process.env.FB_APP_SECRET);
+  let hmac = crypto.createHmac("sha1", process.env.FB_PAGE_ACCESS_TOKEN);
   hmac.update(buf, "utf-8");
   return "sha1=" + hmac.digest("hex");
 }
