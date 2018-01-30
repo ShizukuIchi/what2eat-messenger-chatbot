@@ -15,8 +15,6 @@ function verifyRequest(req, res, buf, encoding) {
   let calculated = getSignature(buf);
   if (expected !== calculated) {
     throw new Error("Invalid signature.");
-  } else {
-    console.log("Valid signature!");
   }
 }
 
