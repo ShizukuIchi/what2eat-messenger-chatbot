@@ -34,7 +34,17 @@ function sendSetup(setup) {
   })
 }
 
+function setupGetStart() {
+  let obj = { 
+    "get_started":{
+      "payload":"bla"
+    }
+  }
+  sendSetup(obj)
+}
+
 module.exports = {
   sendSetup,
-  sendTextMessage
+  sendTextMessage,
+  setupGetStart
 }
