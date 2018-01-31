@@ -49,16 +49,13 @@ function receivedMessage(event) {
   const timeOfMessage = event.timestamp;
   const message = event.message;
   
-  let menu = new Menu()
   if(message.text === 's') {
-    // menu.addSubMenu('dice')
-    menu.setup()
-  } else if (message.text === 'd') {
-    db.getUsers().then(res => console.log(JSON.stringify(res)))
-  } else if(message.text === "註冊") {
-    db.insertUser(senderID);
-  } else {
-    db.client.query(message.text)
+    db.insertUser(senderID)
+    let menu = new Menu(senderID)
+    menu.addSubMenu('dice')
+    menu.updateDB()
+  } else if(message.text[0] === '-') {
+    db.client.query(message.text.slice(1))
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
 }

@@ -37,7 +37,13 @@ const defaultMenu = () => ({
       "call_to_actions": [
         {
           "type": "web_url",
-          "title": "web view",
+          "title": "使用手冊",
+          "url": 'http://sh1zuku.csie.io',
+          "webview_height_ratio": "full"
+        },
+        {
+          "type": "web_url",
+          "title": "關於我",
           "url": 'http://sh1zuku.csie.io',
           "webview_height_ratio": "full"
         }
