@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const dof = require("./menu.js").defaultMenuObject
+const dof = require("../utils/menu.js").defaultMenuObject
 
 const defaultMenu = () => ({
   "persistent_menu": [
