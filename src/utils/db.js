@@ -60,9 +60,11 @@ class DB {
       console.log('existed')
       return result
     }
+    const obj = defaultMenuObject()
+    console.log(obj)
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
-      values: [uid, JSON.stringify(defaultMenuObject())]
+      values: [uid, JSON.stringify(obj)]
     }
     try {
       result = await this.client.query(query)
