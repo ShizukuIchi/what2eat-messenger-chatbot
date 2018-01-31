@@ -30,7 +30,7 @@ class DB {
   async getUsers() {
     let result = null
     try {
-      result = await this.client.query('SELECT id,uid FROM users;')
+      result = await this.client.query('SELECT * FROM users;')
         .then(result => result.rows)
     } catch(e) {
       throw e

@@ -2,7 +2,7 @@ const app = require("express")();
 const bodyParser = require("body-parser");
 const crypto = require('crypto');
 const router = require("./src/routers");
-const { sendSetup } = require("./src/utils/messenger.js")
+const { setupGetStart } = require("./src/utils/messenger.js")
 
 function getSignature(buf) {
   let hmac = crypto.createHmac("sha1", process.env.FB_APP_SECRET);
@@ -33,7 +33,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.json({ verify: verifyRequest }))
 app.use(router);    
 app.use(abortOnError);
-sendSetup()
+setupGetStart()
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))
