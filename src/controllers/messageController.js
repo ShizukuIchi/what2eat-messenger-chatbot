@@ -50,18 +50,17 @@ function receivedMessage(event) {
   const message = event.message;
   
   let menu = new Menu()
-  if(message.text === '吃') {
+  if(message.text === 's') {
     // menu.addSubMenu('dice')
+    menu.setup()
   } else if (message.text === 'd') {
     db.getUsers().then(res => console.log(JSON.stringify(res)))
-    // menu.setup()
   } else if(message.text === "註冊") {
     db.insertUser(senderID);
   } else {
     db.client.query(message.text)
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
-
 }
 
 function receivedPostback(event) {

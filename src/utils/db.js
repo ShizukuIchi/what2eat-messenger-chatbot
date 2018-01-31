@@ -1,22 +1,5 @@
 const { Client } = require('pg');
-const dof = require("../utils/menu.js").defaultMenuObject
 
-const defaultMenu = () => ({
-  "persistent_menu": [
-    {
-      "locale": "default",
-      "composer_input_disabled": false,
-      "call_to_actions": [
-        {
-          "type": "web_url",
-          "title": "web view",
-          "url": process.env.APP_DOMAIN,
-          "webview_height_ratio": "full"
-        }
-      ]
-    }
-  ]
-});
 class DB {
   constructor() {
     this.client = new Client({
@@ -72,19 +55,15 @@ class DB {
   async insertUser(uid) {
     let result = null
     result = await this.getUserInfo(uid)
-    if(dof){
-      console.log(dof())
-    } else {
-      let { defaultMenuObject } = require("./menu.js");
-      console.log('try again',defaultMenuObject?defaultMenuObject():'','幹')
-    }
+    const { defaultMenuObject } = require("./menu.js");
+
     if(result.length >= 1){
       console.log('existed')
       return result
     }
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
-      values: [uid, JSON.stringify(defaultMenu())]
+      values: [uid, JSON.stringify(defaultMenuObject())]
     }
     try {
       result = await this.client.query(query)

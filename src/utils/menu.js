@@ -52,9 +52,6 @@ class Menu {
     this.menu = defaultMenu();
     // this.setup()
   }
-  loadMenu(psid) {
-    this.menu = defaultMenu;
-  }
   addSubMenu(name, position = 0) {
     const newMenu = { ...this.menu };
     switch (name) {
