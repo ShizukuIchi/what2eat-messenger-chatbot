@@ -1,6 +1,6 @@
 const { Menu } = require("../utils/menu.js")
 const { sendTextMessage, sendSetup } = require("../utils/messenger.js")
-const { db } = require("../utils/db.js")
+const db = require("../utils/db.js")
 
 function verifyWebhook(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
