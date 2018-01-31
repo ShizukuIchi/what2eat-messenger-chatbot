@@ -72,12 +72,15 @@ class DB {
   async insertUser(uid) {
     let result = null
     result = await this.getUserInfo(uid)
+    if(dof){
+      console.log(dof())
+    } else {
+      let { defaultMenuObject } = require("./menu.js");
+      console.log('try again',defaultMenuObject?defaultMenuObject():'','幹')
+    }
     if(result.length >= 1){
       console.log('existed')
       return result
-    }
-    if(dof){
-      console.log(dof())
     }
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
