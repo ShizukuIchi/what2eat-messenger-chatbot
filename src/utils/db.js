@@ -1,4 +1,6 @@
 const { Client } = require('pg');
+const dof = require("./menu.js").defaultMenuObject
+
 const defaultMenu = () => ({
   "persistent_menu": [
     {
@@ -73,6 +75,9 @@ class DB {
     if(result.length >= 1){
       console.log('existed')
       return result
+    }
+    if(dof){
+      console.log(dof())
     }
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
