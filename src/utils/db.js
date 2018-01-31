@@ -1,6 +1,20 @@
 const { Client } = require('pg');
-const { defaultMenuObject } = require("./menu.js")
-
+const defaultMenu = () => ({
+  "persistent_menu": [
+    {
+      "locale": "default",
+      "composer_input_disabled": false,
+      "call_to_actions": [
+        {
+          "type": "web_url",
+          "title": "web view",
+          "url": process.env.APP_DOMAIN,
+          "webview_height_ratio": "full"
+        }
+      ]
+    }
+  ]
+});
 class DB {
   constructor() {
     this.client = new Client({
@@ -60,11 +74,9 @@ class DB {
       console.log('existed')
       return result
     }
-    const obj = defaultMenuObject()
-    console.log(obj)
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
-      values: [uid, JSON.stringify(obj)]
+      values: [uid, JSON.stringify(defaultMenu())]
     }
     try {
       result = await this.client.query(query)
