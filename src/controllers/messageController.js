@@ -1,4 +1,4 @@
-const { Menu } = require("../utils/messenger.js")
+const { Menu } = require("../utils/menu.js")
 const { sendTextMessage, sendSetup } = require("../utils/messenger.js")
 const { db } = require("../utils/db.js")
 
