@@ -8,7 +8,6 @@ class DB {
       ssl: true,
     });
     this.client.connect();
-    this.client.query('ALTER TABLE users RENAME todos to menu;')
   }
   async getTable() {
     let result = null
