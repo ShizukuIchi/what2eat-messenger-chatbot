@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const crypto = require('crypto');
 const router = require("./src/routers");
 const { setupGetStart } = require("./src/utils/messenger.js")
+const { defaultMenuObject } = require("./src/utils/menu.js")
 
 function getSignature(buf) {
   let hmac = crypto.createHmac("sha1", process.env.FB_APP_SECRET);
@@ -27,13 +28,13 @@ function abortOnError(err, req, res, next) {
     next();
   }
 }
-
+console.log('---------------->',defaultMenuObject)
+setupGetStart()
 app.set('views', './views');
 app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.json({ verify: verifyRequest }))
 app.use(router);    
 app.use(abortOnError);
-setupGetStart()
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))
