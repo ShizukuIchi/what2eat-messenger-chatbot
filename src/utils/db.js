@@ -62,7 +62,7 @@ class DB {
     }
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
-      values: [uid, JSON.stringify(defaultMenuObject)]
+      values: [uid, JSON.stringify(defaultMenuObject())]
     }
     try {
       result = await this.client.query(query)

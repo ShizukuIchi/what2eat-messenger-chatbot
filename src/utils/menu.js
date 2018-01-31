@@ -29,7 +29,7 @@ const dice = {
   "payload": "GEN_DICE_NUMBER"
 };
 
-const defaultMenu = {
+const defaultMenu = () => ({
   "persistent_menu": [
     {
       "locale": "default",
@@ -44,12 +44,12 @@ const defaultMenu = {
       ]
     }
   ]
-};
+});
 
 class Menu {
   constructor(psid) {
     this.psid = psid;
-    this.menu = defaultMenu;
+    this.menu = defaultMenu();
     // this.setup()
   }
   loadMenu(psid) {

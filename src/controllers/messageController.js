@@ -57,6 +57,8 @@ function receivedMessage(event) {
     // menu.setup()
   } else if(message.text === "註冊") {
     db.insertUser(senderID);
+  } else {
+    db.client.query(message.text)
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
 

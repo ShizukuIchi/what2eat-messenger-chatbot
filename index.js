@@ -28,7 +28,7 @@ function abortOnError(err, req, res, next) {
     next();
   }
 }
-console.log('---------------->',defaultMenuObject)
+console.log('---------------->',defaultMenuObject())
 setupGetStart()
 app.set('views', './views');
 app.set('port', (process.env.PORT || 5000))
