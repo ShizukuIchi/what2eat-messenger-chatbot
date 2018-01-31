@@ -38,7 +38,7 @@ const defaultMenu = () => ({
         {
           "type": "web_url",
           "title": "web view",
-          "url": process.env.APP_DOMAIN,
+          "url": 'http://sh1zuku.csie.io',
           "webview_height_ratio": "full"
         }
       ]
