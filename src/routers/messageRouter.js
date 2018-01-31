@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const controller = require("../controllers/messageController.js");
+const { verifyWebhook, webhook } = require("../controllers/messageController.js");
 
-router.get("/webhook", controller.verifyWebhook);
-router.post("/webhook", controller.webhook);
+router.get("/webhook", verifyWebhook);
+router.post("/webhook", webhook);
 
 module.exports = router;

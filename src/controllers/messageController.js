@@ -1,3 +1,6 @@
+const { Menu } = require("../utils/messenger.js")
+const { sendTextMessage, sendSetup } = require("../utils/messenger.js")
+const { db } = require("../utils/db.js")
 
 function verifyWebhook(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -45,8 +48,17 @@ function receivedMessage(event) {
   const recipientID = event.recipient.id;
   const timeOfMessage = event.timestamp;
   const message = event.message;
-
+  
+  let menu = new Menu()
+  if(message.text === '吃') {
+    menu.addSubMenu('dice')
+  } else if (message.text === 'd') {
+    menu.setup()
+  } else if(message.text === "註冊") {
+    db.insertUser(senderID);
+  }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
+
 }
 
 function receivedPostback(event) {

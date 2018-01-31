@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const { defaultMenuObject } = require("./menu.js")
 
 class DB {
   constructor() {
@@ -7,15 +8,33 @@ class DB {
       ssl: true,
     });
     this.client.connect();
+    this.client.query('ALTER TABLE users RENAME todos to menu;')
   }
-
+  async getTable() {
+    let result = null
+    try {
+      result = await this.client.query('SELECT * FROM users;')
+        .then(result => result.rows)
+    } catch(e) {
+      throw e
+    }
+  }
+  async genError() {
+    let result = null
+    try {
+      result = await this.client.query('SELECT * FROM user;')
+        .then(result => result.rows)
+    } catch(e) {
+      throw e
+    }
+  }
   async getUsers() {
     let result = null
     try {
-      result = await this.client.query('SELECT id, uid FROM users;')
+      result = await this.client.query('SELECT id,uid FROM users;')
         .then(result => result.rows)
     } catch(e) {
-      console.log(e)
+      throw e
     }
     return result
   }
@@ -23,14 +42,14 @@ class DB {
   async getUserInfo(uid) {
     let result = null
     const query = {
-      text: "SELECT id,uid,todos FROM users WHERE uid = $1;",
+      text: "SELECT * FROM users WHERE uid = $1;",
       values: [uid]
     }
     try {
       result = await this.client.query(query)
         .then(result => result.rows)
     } catch(e) {
-      console.log(e)
+      throw(e)
     }
     return result
   }
@@ -43,35 +62,34 @@ class DB {
       return result
     }
     const query = {
-      text: 'INSERT INTO users(uid, todos) values($1, $2)',
-      values: [uid, `[{"name":"測試","deadline":"${new Date().getTime()}"}]`]
+      text: 'INSERT INTO users(uid,menu) values($1, $2)',
+      values: [uid, JSON.stringify(defaultMenuObject)]
     }
     try {
       result = await this.client.query(query)
         .then(result => result.rows)
     } catch(e) {
-      console.log(e)
+      throw e
     }
     return result
   }
 
-  async insertUserReminder(uid, name, deadline) {
+  async updateUser(uid, menu) {
     let result = null
-    result = await this.getUserInfo(uid)
-    if(result.length === 0){
+    const user = await this.getUserInfo(uid)
+    if(user.length === 0){
       console.log('no user')
-      return result
+      return
     }
-    const newJson = [...result[0].todos,{name,deadline:deadline.getTime()}]
     const query = {
-      text: `UPDATE users SET todos = $1 WHERE id = $2;`,
-      values: [JSON.stringify(newJson), result[0].id]
+      text: `UPDATE users SET menu = $1 WHERE id = $2;`,
+      values: [JSON.stringify(menu), user[0].id]
     }
     try {
       result = await this.client.query(query)
         .then(result => result.rows)
     } catch(e) {
-      console.log(e)
+      throw e
     }
     return result
   }
@@ -83,10 +101,9 @@ class DB {
       console.log('no user')
       return result
     }
-    const { id } = user[0]
     let query = {
       text: 'DELETE FROM users WHERE id = $1;',
-      values: [id]
+      values: [user[0].id]
     }
     try {
       result = await this.client.query(query)
