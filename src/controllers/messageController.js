@@ -51,10 +51,10 @@ function receivedMessage(event) {
   
   let menu = new Menu()
   if(message.text === '吃') {
-    menu.addSubMenu('dice')
+    // menu.addSubMenu('dice')
   } else if (message.text === 'd') {
     db.getUsers().then(console.log)
-    menu.setup()
+    // menu.setup()
   } else if(message.text === "註冊") {
     db.insertUser(senderID);
   }
