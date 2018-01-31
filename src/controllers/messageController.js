@@ -53,7 +53,7 @@ function receivedMessage(event) {
   if(message.text === '吃') {
     // menu.addSubMenu('dice')
   } else if (message.text === 'd') {
-    db.getUsers().then(console.log)
+    db.getUsers().then(res => console.log(JSON.stringify(res)))
     // menu.setup()
   } else if(message.text === "註冊") {
     db.insertUser(senderID);
