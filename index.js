@@ -22,7 +22,7 @@ function verifyRequest(req, res, buf, encoding) {
 function abortOnError(err, req, res, next) {
   if (err) {
     console.log(err);
-    res.status(400).send({ error: "Invalid signature." });
+    res.status(400).send({ error: "something wrong" });
   } else {
     next();
   }
