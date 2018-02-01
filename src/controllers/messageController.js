@@ -1,6 +1,7 @@
 const { Menu } = require("../utils/menu.js")
 const { sendTextMessage, sendSetup } = require("../utils/messenger.js")
 const db = require("../utils/db.js")
+const postbackHandler = require("../utils/postbackHandler.js")
 
 function verifyWebhook(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -15,11 +16,21 @@ function verifyWebhook(req, res) {
 function webhook(req, res){
   let data = req.body;
   if (data.object === 'page') {
-    data.entry.forEach(function(entry) {
-      let pageID = entry.id;
-      let timeOfEvent = entry.time;
-      entry.messaging.forEach(messagingEventHandler);
-    });
+    if (data.entry) {
+      data.entry.forEach(function(entry) {
+        let pageID = entry.id;
+        let timeOfEvent = entry.time;
+        if(entry.messaging) {
+          entry.messaging.forEach(messagingEventHandler);
+        } else {
+          console.log('unknown entry',JSON.stringify(entry))
+        }
+      });
+    } else {
+      console.log('unknown webhook: ', JSON.stringify(data))
+    }
+  } else {
+    console.log('unknown webhook: ', JSON.stringify(data))
   }
   res.sendStatus(200);
 }
@@ -62,6 +73,7 @@ function receivedMessage(event) {
 function receivedPostback(event) {
   console.log('receive postback event:')
   console.log(JSON.stringify(event))
+  sendTextMessage(event.sender.id, postbackHandler(event.postback.payload))
 }
 
 function messageDelivered(event) {

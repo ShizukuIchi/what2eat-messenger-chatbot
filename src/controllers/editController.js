@@ -16,7 +16,7 @@ async function edit(req, res) {
 }
 
 function edited(req, res) {
-  console.log(res.body)
+  console.log(req.body)
   return res.sendStatus(200)
 }
 

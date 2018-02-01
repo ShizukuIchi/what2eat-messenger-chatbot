@@ -55,7 +55,6 @@ class DB {
   async insertUser(uid) {
     let result = null
     result = await this.getUserInfo(uid)
-    const { defaultMenuObject } = require("./menu.js");
 
     if(result.length >= 1){
       console.log('existed')
@@ -63,7 +62,7 @@ class DB {
     }
     const query = {
       text: 'INSERT INTO users(uid,menu) values($1, $2)',
-      values: [uid, JSON.stringify(defaultMenuObject())]
+      values: [uid, '{"status":"new"}']
     }
     try {
       result = await this.client.query(query)
@@ -83,7 +82,7 @@ class DB {
     }
     const query = {
       text: `UPDATE users SET menu = $1 WHERE id = $2;`,
-      values: [JSON.stringify(menu), user[0].id]
+      values: ['{"status":"updated"}', user[0].id]
     }
     try {
       result = await this.client.query(query)

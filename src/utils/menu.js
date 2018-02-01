@@ -1,8 +1,6 @@
 const { sendSetup, sendTextMessage } = require("./messenger.js");
 const db = require("./db.js")
 
-
-
 class Menu {
   constructor(psid) {
     this.psid = psid;
