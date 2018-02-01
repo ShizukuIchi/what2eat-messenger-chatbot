@@ -1,5 +1,5 @@
 const { Menu } = require("../utils/menu.js")
-const { sendTextMessage, sendSetup } = require("../utils/messenger.js")
+const { sendTextMessage, sendSetup, sendFunctionList } = require("../utils/messenger.js")
 const db = require("../utils/db.js")
 const postbackHandler = require("../utils/postbackHandler.js")
 
@@ -73,7 +73,11 @@ function receivedMessage(event) {
 function receivedPostback(event) {
   console.log('receive postback event:')
   console.log(JSON.stringify(event))
-  sendTextMessage(event.sender.id, postbackHandler(event.postback.payload))
+  if (event.postback.payload === "GEN_FUNCTION_LIST"){
+    sendFunctionList(event.sender.id)
+  } else {
+    sendTextMessage(event.sender.id, postbackHandler(event.postback.payload))
+  }
 }
 
 function messageDelivered(event) {
