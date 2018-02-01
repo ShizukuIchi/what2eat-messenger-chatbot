@@ -1,31 +1,26 @@
-const path = require("path");
-const db = require("../utils/db.js")
+const path = require("path")
 const { getIdFromToken } = require("../utils/messenger.js")
 
-function edit(req, res) {
-  if(req.query.redirect_uri === undefined || req.query.account_linking_token === undefined)
-    return res.status(400).send("bad request");
-  return res.sendFile(path.resolve(__dirname, "views/edit.html"))
-}
 
-function authorizeEdit(req, res){
-  let id = getIdFromToken(req.query.account_linking_token)
-    .then(res => {
-      console.log(JSON.stringify(res))
+async function edit(req, res) {
+  let toRender = true
+  await getIdFromToken(req.query.account_linking_token)
+    .catch(e => {
+      toRender = false
+      throw e
     })
-    .catch(console.log)
-  return res.sendStatus(200)
-  
-  // db.getUsers()
-  //   .then(result => res.send(JSON.stringify(result)))
-  //   .catch(e => {
-  //     res.sendStatus(400)
-  //     throw e
-  //   })
+  if (toRender)
+    return res.render("edit", req.query)
+  else
+    return res.status(400).send({ error: "invalid token" });
 }
 
+function edited(req, res) {
+  console.log(res.body)
+  return res.sendStatus(200)
+}
 
 module.exports = {
   edit,
-  authorizeEdit
+  edited
 };

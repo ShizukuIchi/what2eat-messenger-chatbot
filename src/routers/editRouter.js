@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const { edit,authorizeEdit } = require("../controllers/editController.js");
+const { edit, edited} = require("../controllers/editController.js");
 
-router.get("edit", edit);
-router.get("editID", authorizeEdit);
+router.get("/edit", edit);
+router.post("/edit", edited)
 
 module.exports = router;
