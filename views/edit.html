@@ -14,8 +14,8 @@
     <input type="submit" value="POST"/>
   </form>
   <script type="text/javascript">
-    let someData = data;
-    let token = account_linking_token;
+    let someData = data || '1';
+    let token = account_linking_token || '2';
     document.querySelector('#one').value = data.toString()
     document.querySelector("#two").value = token.toString()
   </script>
