@@ -7,18 +7,17 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="t" method="GET">
-    <input name="one" type="text" value="cao" />
-    <input name="two" type="text" value=account.linking_token />
-    <input name="three" type="text" value=data.account_linking_token />
-    <input type="submit" value="GET"/>
-  </form>
-  <hr>
   <form action="t" method="POST">
-      <input name="one" type="text" value="cao" />
-      <input name="two" type="text" value=account.linking_token />
-      <input name="three" type="text" value=data.account_linking_token />
-      <input type="submit" value="POST"/>
-    </form>
+    <input name="t" type="text" value="cao" />
+    <input id="one" name="one" type="text" value="" />
+    <input id="two" name="two" type="text" value="" />
+    <input type="submit" value="POST"/>
+  </form>
+  <script type="text/javascript">
+    let someData = data;
+    let token = account_linking_token;
+    document.querySelector('#one').value = data.toString()
+    document.querySelector("#two").value = token.toString()
+  </script>
 </body>
 </html>
