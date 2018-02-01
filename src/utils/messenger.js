@@ -34,6 +34,34 @@ function sendSetup(setup) {
   })
 }
 
+function genDefaultMenu(){
+	return ({
+		"persistent_menu": [
+			{
+				"locale": "default",
+				"composer_input_disabled": false,
+				"call_to_actions": [
+					{
+						"type": "web_url",
+						"title": "使用手冊",
+						"url": 'http://sh1zuku.csie.io',
+						"webview_height_ratio": "full"
+					},
+					{
+						"type": "web_url",
+						"title": "關於我",
+						"url": 'http://sh1zuku.csie.io',
+						"webview_height_ratio": "full"
+					}
+				]
+			}
+		]
+	})
+};
+function setupGetStart() {
+	sendSetup(genDefaultMenu())
+}
+
 module.exports = {
   sendSetup,
   sendTextMessage,

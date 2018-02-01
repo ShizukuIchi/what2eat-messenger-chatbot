@@ -1,73 +1,15 @@
 const { sendSetup, sendTextMessage } = require("./messenger.js");
 const db = require("./db.js")
 
-const randomEat = {
-  "title": "ㄘㄘ",
-  "type": "nested",
-  "call_to_actions": [
-    {
-      "title": "早餐",
-      "type": "postback",
-      "payload": "GEN_BREAKFAST"
-    },
-    {
-      "title": "午餐",
-      "type": "postback",
-      "payload": "GEN_LUNCH"
-    },
-    {
-      "title": "晚餐",
-      "type": "postback",
-      "payload": "GEN_DINNER"
-    }
-  ]
-};
 
-const dice = {
-  "title": "Dice",
-  "type": "postback",
-  "payload": "GEN_DICE_NUMBER"
-};
-
-const defaultMenu = () => ({
-  "persistent_menu": [
-    {
-      "locale": "default",
-      "composer_input_disabled": false,
-      "call_to_actions": [
-        {
-          "type": "web_url",
-          "title": "使用手冊",
-          "url": 'http://sh1zuku.csie.io',
-          "webview_height_ratio": "full"
-        },
-        {
-          "type": "web_url",
-          "title": "關於我",
-          "url": 'http://sh1zuku.csie.io',
-          "webview_height_ratio": "full"
-        }
-      ]
-    }
-  ]
-});
 
 class Menu {
   constructor(psid) {
     this.psid = psid;
-    this.menu = defaultMenu();
-    // this.setup()
+    this.menu = {};
   }
   addSubMenu(name, position = 0) {
     const newMenu = { ...this.menu };
-    switch (name) {
-      case "random-eat":
-        newMenu.persistent_menu[0].call_to_actions.splice(index, 0, randomEat);
-        break;
-      case "dice":
-        newMenu.persistent_menu[0].call_to_actions.splice(index, 0, dice);
-        break;
-    }
     this.menu = newMenu;
     this.setup();
   }
@@ -90,5 +32,4 @@ class Menu {
 
 module.exports = {
   Menu,
-  defaultMenuObject: defaultMenu,
 };

@@ -18,24 +18,26 @@ function webhook(req, res){
     data.entry.forEach(function(entry) {
       let pageID = entry.id;
       let timeOfEvent = entry.time;
-      entry.messaging.forEach(function(event) {
-        if (event.message && event.message.text) {
-          receivedMessage(event);
-        } else if (event.account_linking) {
-          receivedAccountLinking(event);
-        } else if (event.postback) {
-          receivedPostback(event);
-        } else if (event.delivery) {
-          messageDelivered(event)
-        } else if (event.read) {
-          messageRead(event)
-        } else {
-          console.log("unknown event: ", event);
-        }
-      });
+      entry.messaging.forEach(messagingEventHandler);
     });
   }
   res.sendStatus(200);
+}
+
+function messagingEventHandler(event) {
+  if (event.message && event.message.text) {
+    receivedMessage(event);
+  } else if (event.account_linking) {
+    receivedAccountLinking(event);
+  } else if (event.postback) {
+    receivedPostback(event);
+  } else if (event.delivery) {
+    messageDelivered(event)
+  } else if (event.read) {
+    messageRead(event)
+  } else {
+    console.log("unknown event: ", event);
+  }
 }
 
 function receivedAccountLinking(event){
