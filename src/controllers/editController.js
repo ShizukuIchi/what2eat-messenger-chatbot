@@ -16,7 +16,9 @@ async function edit(req, res) {
 }
 
 function edited(req, res) {
-  console.log(req.body)
+  getIdFromToken(req.body.token)
+    .then(res => console.log('logged in:', res.recipient))
+    .catch(console.log)
   return res.sendStatus(200)
 }
 

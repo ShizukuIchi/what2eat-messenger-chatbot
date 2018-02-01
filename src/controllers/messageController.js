@@ -79,8 +79,13 @@ function messageRead(event) {
   console.log('message read:', event.read.watermark)
 }
 
+function sendme(req, res) {
+  sendTextMessage(process.env.MY_PSID, require.body.text)
+  return res.sendStatus(200)
+}
 
 module.exports = {
   webhook,
-  verifyWebhook
+  verifyWebhook,
+  sendme
 }
