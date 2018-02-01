@@ -17,20 +17,13 @@ function webhook(req, res){
   let data = req.body;
   if (data.object === 'page') {
     if (data.entry) {
+      console.log(JSON.stringify(data.entry))
       data.entry.forEach(function(entry) {
         let pageID = entry.id;
         let timeOfEvent = entry.time;
-        if(entry.messaging) {
-          entry.messaging.forEach(messagingEventHandler);
-        } else {
-          console.log('unknown entry',JSON.stringify(entry))
-        }
+        entry.messaging.forEach(messagingEventHandler);
       });
-    } else {
-      console.log('unknown webhook: ', JSON.stringify(data))
     }
-  } else {
-    console.log('unknown webhook: ', JSON.stringify(data))
   }
   res.sendStatus(200);
 }
@@ -62,10 +55,8 @@ function receivedMessage(event) {
   const timeOfMessage = event.timestamp;
   const message = event.message;
   
-  if(message.text === 's') {
-    db.insertUser(senderID)
-  } else if(message.text[0] === '-') {
-    db.client.query(message.text.slice(1))
+  if(message.text[0] === '--') {
+    db.client.query(message.text.slice(2))
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
 }
