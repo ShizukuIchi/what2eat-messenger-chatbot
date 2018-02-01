@@ -30,8 +30,7 @@ function abortOnError(err, req, res, next) {
 
 // setupGetStart()
 app.set('views', './views');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.json({ verify: verifyRequest }))
 app.use(bodyParser.urlencoded({extended:false}));

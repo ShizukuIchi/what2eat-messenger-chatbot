@@ -5,18 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script type="text/javascript">
+    let a = " {{ account_linking_token }}"
+    console.log(a)
+  </script>
 </head>
 <body>
-  <h1>{{account_linking_token}}</h1>
-  <h1>#{account_linking_token}</h1>
+  <h1><%- account_linking_token %></h1>
+  <h1><%= account_linking_token %></h1>
   <form action="t" method="POST">
     <input name="t" type="text" value="cao" />
-    <input id="one" name="one" type="text" value="" />
-    <input id="two" name="two" type="text" value="" />
+    <input id="one" name="one" type="text" value=<%- account_linking_token %> />
+    <input id="two" name="two" type="text" value=<% account_linking_token %> />
     <input type="submit" value="POST"/>
   </form>
-  <script type="text/javascript">
-    console.log("{{account_linking_token}}")
-  </script>
+  
 </body>
 </html>
