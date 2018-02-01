@@ -7,6 +7,8 @@
   <title>Document</title>
 </head>
 <body>
+  <h1>{{account_linking_token}}</h1>
+  <h1>#{account_linking_token}</h1>
   <form action="t" method="POST">
     <input name="t" type="text" value="cao" />
     <input id="one" name="one" type="text" value="" />
@@ -14,9 +16,7 @@
     <input type="submit" value="POST"/>
   </form>
   <script type="text/javascript">
-    console.log(document.data)
-    console.log(window.data)
-    console.log('gg')
+    console.log("{{account_linking_token}}")
   </script>
 </body>
 </html>
