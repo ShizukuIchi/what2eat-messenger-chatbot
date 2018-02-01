@@ -1,4 +1,5 @@
 const request = require("request");
+const db = require("../utils/db.js")
 
 function sendTextMessage(sender, text) {
 	let messageData = { text:text }
@@ -62,8 +63,31 @@ function setupGetStart() {
 	sendSetup(genDefaultMenu())
 }
 
+function getIdFromToken(token) {
+	return new Promise((res,rej) => {
+		request({
+			url:"https://graph.facebook.com/v2.6/me",
+			method: "GET",
+			qs:{
+				access_token: process.env.FB_PAGE_ACCESS_TOKEN,
+				fields: "recipient",
+				account_linking_token: token
+			}
+		}, function(error, response, body) {
+			if (error) {
+				rej(error)
+			} else if (response.body.error) {
+				rej(response.body.error)
+			} else {
+				res(response)
+			}
+		})
+	})
+}
+
 module.exports = {
   sendSetup,
   sendTextMessage,
-  setupGetStart
+	setupGetStart,
+	getIdFromToken
 }

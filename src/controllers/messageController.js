@@ -53,9 +53,6 @@ function receivedMessage(event) {
   
   if(message.text === 's') {
     db.insertUser(senderID)
-    let menu = new Menu(senderID)
-    menu.addSubMenu('dice')
-    menu.updateDB()
   } else if(message.text[0] === '-') {
     db.client.query(message.text.slice(1))
   }
