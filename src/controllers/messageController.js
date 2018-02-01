@@ -65,7 +65,7 @@ function receivedPostback(event) {
 }
 
 function messageDelivered(event) {
-  console.log('message sent:', event.delivery.mids.toString(), watermark )
+  console.log('message sent:', event.delivery.mids.toString(), event.delivery.watermark )
 }
 
 function messageRead(event) {
