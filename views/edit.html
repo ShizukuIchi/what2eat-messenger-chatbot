@@ -14,10 +14,11 @@
     <input type="submit" value="POST"/>
   </form>
   <script type="text/javascript">
-    let someData = data || '1';
-    let token = account_linking_token || '2';
-    document.querySelector('#one').value = data.toString()
-    document.querySelector("#two").value = token.toString()
+    if (data !== undefined)
+      console.log(data)
+    if (account_linking_token !== undefined)
+      console.log(account_linking_token)
+    console.log('gg')
   </script>
 </body>
 </html>
