@@ -80,7 +80,7 @@ function messageRead(event) {
 }
 
 function sendme(req, res) {
-  sendTextMessage(process.env.MY_PSID, require.body.text)
+  sendTextMessage(process.env.MY_PSID, req.body.text)
   return res.sendStatus(200)
 }
 
