@@ -1,4 +1,5 @@
 const datas = require('./datas');
+const db = require("../utils/db.js")
 
 function postbackHandler(name) {
   switch(name) {
@@ -22,8 +23,12 @@ function random(from, to) {
 }
 
 function genRandomElementFrom(name) {
-  const data = datas[name].data
-  return data[random(0,data.length-1)]
+  // const data = datas[name].data
+  // return data[random(0,data.length-1)]
+  console.log(JSON.stringify(db.getData(name)))
+  return 'test'
 }
+
+
 
 module.exports = postbackHandler

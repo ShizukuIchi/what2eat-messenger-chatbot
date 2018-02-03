@@ -59,8 +59,9 @@ function receivedMessage(event) {
   if(message.text[0] === '>') {
     db.client.query(message.text.slice(1))
       .then(res => console.log(JSON.stringify(res)))
+      .catch(e => {throw e})
   } else if (message.text === 'p') {
-    db.getDatas()
+    db.getDatasTable()
       .then(res => console.log(JSON.stringify(res)))
   } else {
     if (message.text.indexOf('+') > 0){
