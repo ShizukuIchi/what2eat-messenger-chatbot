@@ -25,7 +25,7 @@ class DB {
   isDataExist(name) {
     return new Promise(res => {
       this.client.query(`SELECT EXISTS(SELECT 1 FROM datas WHERE data->'name' = '"${name}"' )`)
-        .then(result => {console.log(result);res(result.rows[0].exist)})
+        .then(result => {console.log(result);res(result.rows[0].exists)})
         .catch(e => {throw e;})
     }) 
   }
