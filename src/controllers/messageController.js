@@ -66,7 +66,8 @@ function receivedMessage(event) {
   } else {
     if (message.text.indexOf('+') > 0){
     let texts = message.text.split('+')
-      data.insert(texts[0], texts[1])
+      db.insertDataElements(texts[0], [texts[1]])
+        .then(res => sendTextMessage(senderID, '新增完成'))
     }
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
