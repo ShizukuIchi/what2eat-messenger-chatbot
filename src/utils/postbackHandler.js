@@ -1,21 +1,9 @@
-const lunchList = [
-  '豚骨拉麵',
-  '義大利麵',
-  '鍋燒意麵'
-]
-const breakfastList = [
-  '漢堡',
-  '吐司',
-  '三文治'
-]
-const dinnerList = [
-  '夏慕尼',
-  '陶板屋',
-  '石二鍋'
-]
+const { dinner, lunch, breakfast } = require('./datas');
 
 function postbackHandler(name) {
   switch(name) {
+    case 'GET_STARTED':
+    return '在輸入框旁找到目錄，試試按下功能清單吧！'
     case 'GEN_DICE_NUMBER':
     return random(1,6) 
     case 'GEN_LUNCH':
@@ -34,18 +22,18 @@ function random(from, to) {
 }
 
 function genLunch() {
-  const randomIndex = random(0, lunchList.length-1)
-  return lunchList[randomIndex]
+  const randomIndex = random(0, lunch.length-1)
+  return lunch[randomIndex]
 }
 
 function genBreakfast() {
-  const randomIndex = random(0, breakfastList.length-1)
-  return breakfastList[randomIndex]
+  const randomIndex = random(0, breakfast.length-1)
+  return breakfast[randomIndex]
 }
 
 function genDinner() {
-  const randomIndex = random(0, dinnerList.length-1)
-  return dinnerList[randomIndex]
+  const randomIndex = random(0, dinner.length-1)
+  return dinner[randomIndex]
 }
 
 module.exports = postbackHandler

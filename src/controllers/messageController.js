@@ -2,6 +2,7 @@ const { Menu } = require("../utils/menu.js")
 const { sendTextMessage, sendSetup, sendFunctionList } = require("../utils/messenger.js")
 const db = require("../utils/db.js")
 const postbackHandler = require("../utils/postbackHandler.js")
+const data = require('../utils/dataHandler.js')
 
 function verifyWebhook(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -55,8 +56,13 @@ function receivedMessage(event) {
   const timeOfMessage = event.timestamp;
   const message = event.message;
   
-  if(message.text[0] === '--') {
-    db.client.query(message.text.slice(2))
+  if(message.text[0] === '>') {
+    db.client.query(message.text.slice(1))
+  } else {
+    if (message.text[2] === '+'){
+    let texts = message.text.split('+')
+      data.insert(texts[0], texts[1])
+    }
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
 }
