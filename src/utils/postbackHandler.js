@@ -25,7 +25,10 @@ function random(from, to) {
 function genRandomElementFrom(name) {
   // const data = datas[name].data
   // return data[random(0,data.length-1)]
-  console.log(JSON.stringify(db.getData(name)))
+  db.getData(name).then(result=>{
+    console.log('-------------------------------')
+    console.log(JSON.stringify(result))
+  })
   return 'test'
 }
 
