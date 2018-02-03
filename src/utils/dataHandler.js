@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const path = require('path')
 const datas = require('./datas')
 
 function insert(name, element) {
@@ -11,7 +11,7 @@ function insert(name, element) {
   if (index === -1) {
     newData.push(element)
     return new Promise((res, rej) => {
-      fs.writeFile(`./datas/${name}.json`, JSON.stringify({data:newData}), (e) => {
+      fs.writeFile(path.resolve(__dirname, `./datas/${name}.json`), JSON.stringify({data:newData}), (e) => {
         if (e){
           throw e;
           rej(e)
@@ -36,7 +36,7 @@ function remove(name, element) {
   if (index !== -1){
     return new Promise((res, rej) => {
       newData.splice(index, 1)
-      fs.writeFile(`./datas/${name}.json`, JSON.stringify({data:newData}), (e) => {
+      fs.writeFile(path.resolve(__dirname, `./datas/${name}.json`), JSON.stringify({data:newData}), (e) => {
         if (e) {
           throw e;
           rej(e)
