@@ -57,8 +57,8 @@ class DB {
           data::jsonb,
           '{elements}',
           (data->'elements')::jsonb || '$1'::jsonb) 
-        WHERE data->'name' = '$2';`,
-      values: [JSON.stringify(elements), name]
+        WHERE data->'name' = '"${name}"';`,
+      values: [JSON.stringify(elements)]
     }
     return new Promise(res => {
       this.client.query(query)
@@ -78,8 +78,8 @@ class DB {
           data::jsonb,
           '{elements}',
           (data->'elements')::jsonb - '$1'::jsonb) 
-        WHERE data->'name' = '$2';`,
-      values: [element, name]
+        WHERE data->'name' = '"${name}"';`,
+      values: [element]
     }
     return new Promise(res => {
       this.client.query(query)
