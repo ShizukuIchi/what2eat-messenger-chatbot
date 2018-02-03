@@ -58,6 +58,10 @@ function receivedMessage(event) {
   
   if(message.text[0] === '>') {
     db.client.query(message.text.slice(1))
+      .then(res => console.log(res.toString()))
+  } else if (message.text === 'p') {
+    db.getDatas()
+      .then(res => console.log(res.toString()))
   } else {
     if (message.text.indexOf('+') > 0){
     let texts = message.text.split('+')

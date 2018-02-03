@@ -8,7 +8,7 @@ class DB {
     });
     this.client.connect();
   }
-  async getTable() {
+  async getUsers() {
     let result = null
     try {
       result = await this.client.query('SELECT * FROM users;')
@@ -16,6 +16,72 @@ class DB {
     } catch(e) {
       throw e
     }
+  }
+  getDatas() {
+    return new Promise((res) => {
+      this.client.query('SELECT * FROM datas')
+        .then(result => res(result.rows))
+        .catch(e => {throw e})
+    })
+  }
+  getData(name) {
+    const query = {
+      text: "SELECT * FROM datas WHERE data->'name' = $1;",
+      values: [name]
+    }
+    return new Promise((res) => {
+      this.client.query(query)
+        .then(result => res(result.rows))
+        .catch(e => {throw e})
+    })
+  }
+  isDataExist(name) {
+    const query = {
+      text: "SELECT EXISTS(SELECT 1 FROM datas WHERE data->'name' = $1 );",
+      values: [name]
+    }
+    return new Promise(res => {
+      this.client.query(query)
+        .then(result => res(result))
+        .catch(e => {throw e;})
+    }) 
+  }
+  async insertData(name, elements = []) {
+    const exist = await this.isDataExist(name)
+    if(!exist){
+      console.log(`no ${name}.`)
+      return
+    }
+    const query = {
+      text: 'INSERT INTO datas(data) VALUES($1);',
+      values: [`{"name":"${name}","elements":${JSON.stringify(data)}}`]
+    }
+    return new Promise(res => {
+      this.client.query(query)
+        .then(result => res(result.rows))
+        .catch(e => {throw e})
+    })
+  }
+  async insertDataElements(name, elements) {
+    const exist = await this.isDataExist(name)
+    if(!exist) {
+      console.log(`no ${name}.`)
+      return
+    }
+    const query = {
+      text: `UPDATE datas
+        SET data = jsonb_set(
+          data::jsonb,
+          {elements},
+          (data->'elements')::jsonb || '$1'::jsonb) 
+        WHERE data->'name' = $2;`,
+      values: [JSON.stringify(elements), name]
+    }
+    return new Promise(res => {
+      this.client.query(query)
+        .then(result => res(result))
+        .catch(e => {throw e})
+    })
   }
   async genError() {
     let result = null
