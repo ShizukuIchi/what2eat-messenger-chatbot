@@ -23,13 +23,9 @@ class DB {
     })
   }
   isDataExist(name) {
-    const query = {
-      text: "SELECT EXISTS(SELECT 1 FROM datas WHERE data->'name' = '$1' );",
-      values: [name]
-    }
     return new Promise(res => {
       this.client.query(`SELECT EXISTS(SELECT 1 FROM datas WHERE data->'name' = '"${name}"' )`)
-        .then(result => res(result.rows[0].exist))
+        .then(result => {console.log(result);res(result.rows[0].exist)})
         .catch(e => {throw e;})
     }) 
   }

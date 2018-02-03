@@ -6,7 +6,7 @@ function postbackHandler(name) {
     case 'GET_STARTED':
     return '在輸入框旁找到目錄，試試按下功能清單吧！'
     case 'GEN_DICE_NUMBER':
-    return random(1,6) 
+    return Promise.resolve(random(1,6)) 
     case 'GEN_LUNCH':
     return genRandomElementFrom('lunch')
     case "GEN_BREAKFAST":
