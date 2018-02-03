@@ -17,7 +17,7 @@ class DB {
   }
   getData(name) {
     const query = {
-      text: `SELECT data->'elements' FROM datas WHERE data->'name' = '"$1"';`,
+      text: `SELECT data->'elements' FROM datas WHERE data->'name' = '"` + "$1" + `"'`,
       values: [name]
     }
     return new Promise((res) => {
