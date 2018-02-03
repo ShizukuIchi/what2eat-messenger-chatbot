@@ -16,12 +16,12 @@ class DB {
     })
   }
   getData(name) {
-    const query = {
-      text: "SELECT data->'elements' FROM datas WHERE data->'name' = '\"$1\"'",
-      values: [name]
-    }
+    // const query = {
+    //   text: "SELECT data->'elements' FROM datas WHERE data->'name' = '\"$1\"'",
+    //   values: [name]
+    // }
     return new Promise((res) => {
-      this.client.query(query)
+      this.client.query(`SELECT data->'elements' FROM datas WHERE data->'name' = '"${name}"'`)
         .then(result => res(result.rows))
         .catch(e => {throw e})
     })
