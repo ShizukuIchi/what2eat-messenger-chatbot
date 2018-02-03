@@ -26,6 +26,7 @@ async function genRandomElementFrom(name) {
   // const data = datas[name].data
   // return data[random(0,data.length-1)]
   let result = await db.getData(name)
+  console.log(result[0])
   return Promise.resolve(JSON.stringify(result))
 }
 

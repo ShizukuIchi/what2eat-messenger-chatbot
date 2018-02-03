@@ -16,13 +16,9 @@ class DB {
     })
   }
   getData(name) {
-    // const query = {
-    //   text: "SELECT data->'elements' FROM datas WHERE data->'name' = '\"$1\"'",
-    //   values: [name]
-    // }
     return new Promise((res) => {
       this.client.query(`SELECT data->'elements' FROM datas WHERE data->'name' = '"${name}"'`)
-        .then(result => res(result.rows))
+        .then(result => res(result.rows[0]['?column?']))
         .catch(e => {throw e})
     })
   }
@@ -32,7 +28,7 @@ class DB {
       values: [name]
     }
     return new Promise(res => {
-      this.client.query(query)
+      this.client.query(`SELECT EXISTS(SELECT 1 FROM datas WHERE data->'name' = '"${name}"' )`)
         .then(result => res(result.rows[0].exist))
         .catch(e => {throw e;})
     }) 
