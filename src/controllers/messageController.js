@@ -78,7 +78,10 @@ function receivedPostback(event) {
   if (event.postback.payload === "GEN_FUNCTION_LIST"){
     sendFunctionList(event.sender.id)
   } else {
-    sendTextMessage(event.sender.id, postbackHandler(event.postback.payload))
+    postbackHandler(event.postback.payload)
+      .then(res => {
+        sendTextMessage(event.sender.id, res)
+      })
   }
 }
 

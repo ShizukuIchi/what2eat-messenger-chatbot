@@ -22,14 +22,11 @@ function random(from, to) {
   return Math.floor((Math.random()*(to-from+1))+from)
 }
 
-function genRandomElementFrom(name) {
+async function genRandomElementFrom(name) {
   // const data = datas[name].data
   // return data[random(0,data.length-1)]
-  db.getData(name).then(result=>{
-    console.log('-------------------------------')
-    console.log(JSON.stringify(result))
-  })
-  return 'test'
+  let result = await db.getData(name)
+  return JSON.stringify(result)
 }
 
 
