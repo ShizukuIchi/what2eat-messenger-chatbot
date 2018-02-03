@@ -59,7 +59,7 @@ function receivedMessage(event) {
   if(message.text[0] === '>') {
     db.client.query(message.text.slice(1))
   } else {
-    if (message.text[2] === '+'){
+    if (message.text[2].indexOf('+') > 0){
     let texts = message.text.split('+')
       data.insert(texts[0], texts[1])
     }
