@@ -56,7 +56,7 @@ class DB {
       SET data = jsonb_set(
         data::jsonb,
         '{elements}',
-        (data->'elements')::jsonb || '${elements}'::jsonb) 
+        (data->'elements')::jsonb || '${JSON.stringify(elements)}'::jsonb) 
       WHERE data->'name' = '"${name}"'`
     console.log(query)
     return new Promise(res => {
