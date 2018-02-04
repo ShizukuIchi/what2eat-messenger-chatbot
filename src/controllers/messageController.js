@@ -22,7 +22,9 @@ function webhook(req, res){
       data.entry.forEach(function(entry) {
         let pageID = entry.id;
         let timeOfEvent = entry.time;
-        entry.messaging.forEach(messagingEventHandler);
+        if (entry.messaging) {
+          entry.messaging.forEach(messagingEventHandler);
+        }
       });
     }
   }
@@ -62,10 +64,10 @@ function receivedMessage(event) {
       .catch(e => {throw e})
   } else if (message.text === 'p') {
     db.getDatasTable()
-      .then(res => console.log(JSON.stringify(res)))
+      .then(res => sendTextMessage(process.env.MY_PSID, JSON.stringify(res)))
   } else {
     if (message.text.indexOf('+') > 0){
-    let texts = message.text.split('+')
+      let texts = message.text.split('+')
       db.insertDataElements(texts[0], [texts[1]])
         .then(res => sendTextMessage(senderID, '新增完成'))
     }
