@@ -58,6 +58,7 @@ class DB {
         '{elements}',
         (data->'elements')::jsonb || '${elements}'::jsonb) 
       WHERE data->'name' = '"${name}"'`
+    console.log(query)
     return new Promise(res => {
       this.client.query(query)
         .then(result => res(result))
