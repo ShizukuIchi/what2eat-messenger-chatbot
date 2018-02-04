@@ -51,15 +51,13 @@ class DB {
       console.log(`no ${name}.`)
       return
     }
-    const query = {
-      text: `UPDATE datas
-        SET data = jsonb_set(
-          data::jsonb,
-          '{elements}',
-          (data->'elements')::jsonb || '$1'::jsonb) 
-        WHERE data->'name' = '"${name}"';`,
-      values: [JSON.stringify(elements)]
-    }
+    const query = `
+      UPDATE datas
+      SET data = jsonb_set(
+        data::jsonb,
+        '{elements}',
+        (data->'elements')::jsonb || '${elements}'::jsonb) 
+      WHERE data->'name' = '"${name}"'`
     return new Promise(res => {
       this.client.query(query)
         .then(result => res(result))
