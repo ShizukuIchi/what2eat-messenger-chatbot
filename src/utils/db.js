@@ -37,7 +37,7 @@ class DB {
     }
     const query = {
       text: 'INSERT INTO datas(data) VALUES($1);',
-      values: [`{"name":"${name}","elements":${JSON.stringify(data)}}`]
+      values: [`{"name":"${name}","elements":${JSON.stringify(data)}`]
     }
     return new Promise(res => {
       this.client.query(query)
@@ -71,15 +71,14 @@ class DB {
       console.log(`no ${name}.`)
       return
     }
-    const query = {
-      text: `UPDATE datas
-        SET data = jsonb_set(
-          data::jsonb,
-          '{elements}',
-          (data->'elements')::jsonb - '$1'::jsonb) 
-        WHERE data->'name' = '"${name}"';`,
-      values: [element]
-    }
+    const query = `
+      UPDATE datas
+      SET data = jsonb_set(
+        data::jsonb,
+        '{elements}',
+        (data->'elements')::jsonb - '${element}'::jsonb) 
+      WHERE data->'name' = '"${name}"';`
+    
     return new Promise(res => {
       this.client.query(query)
         .then(result => res(result))
