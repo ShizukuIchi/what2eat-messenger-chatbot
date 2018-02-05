@@ -5,12 +5,8 @@ function postbackHandler(name) {
   switch(name) {
     case 'GEN_DICE_NUMBER':
     return Promise.resolve(random(1,6)) 
-    case 'GEN_LUNCH':
-    return genRandomElementFrom('lunch')
-    case "GEN_BREAKFAST":
-    return genRandomElementFrom('breakfast')
-    case "GEN_DINNER":
-    return genRandomElementFrom('dinner')
+    case 'GEN_PUBLIC_LIST':
+    return genRandomElementFrom('public')
     case "GEN_MEAL":
     return genRandomElementFrom('meal')
     case "GEN_DRINK":

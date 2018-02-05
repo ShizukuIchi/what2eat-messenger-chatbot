@@ -149,7 +149,7 @@ function sendFunctionList(psid) {
           subtitle:
             `只屬於你/妳的清單，
             直接在對話框輸入 '新增鐵板燒'，
-            即可客製專屬清單!:`,
+            即可客製專屬清單！`,
           buttons: [
             {
               title: "等等吃甚麼～？",
@@ -164,34 +164,27 @@ function sendFunctionList(psid) {
           ]
         },
         {
-          title: "骰子拉",
+          title: "公共清單",
+          subtitle: `
+            以 '新增大家的XXX' 擴充清單，
+            可能產生怪怪的東西XD
+            `,
+          buttons: [
+            {
+              title: "大家都想吃什麼？",
+              type: "postback",
+              payload: "GEN_PUBLIC_LIST"
+            }
+          ]
+        },
+        {
+          title: "骰子啦",
           subtitle: "產生1~6隨機數字",
           buttons: [
             {
               title: "GO!!!!",
               type: "postback",
               payload: "GEN_DICE_NUMBER"
-            }
-          ]
-        },
-        {
-          title: "ㄘㄘ什麼?",
-          subtitle: "不再煩惱，立刻產生食物！",
-          buttons: [
-            {
-              title: "早餐",
-              type: "postback",
-              payload: "GEN_BREAKFAST"
-            },
-            {
-              title: "午餐",
-              type: "postback",
-              payload: "GEN_LUNCH"
-            },
-            {
-              title: "晚餐",
-              type: "postback",
-              payload: "GEN_DINNER"
             }
           ]
         }
