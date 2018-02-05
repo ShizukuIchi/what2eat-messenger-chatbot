@@ -30,12 +30,16 @@ class DB {
     }) 
   }
   async insertData(name, elements = []) {
-    const exist = await this.isDataExist(name)
-    const query = {
-      text: 'INSERT INTO datas(data) VALUES($1);',
-      values: [`{"name":"${name}","elements":${JSON.stringify(data)}`]
-    }
-    return new Promise(res => {
+    return new Promise((res, rej) => {
+      const exist = await this.isDataExist(name)
+      if (exist) {
+        console.log(`${name} already exists.`)
+        rej(`${name} already exists.`)
+      }
+      const query = {
+        text: 'INSERT INTO datas(data) VALUES($1);',
+        values: [`{"name":"${name}","elements":'${JSON.stringify(data)}'`]
+      }
       this.client.query(query)
         .then(result => res(result.rows))
         .catch(e => {throw e})
