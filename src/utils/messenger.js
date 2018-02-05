@@ -122,6 +122,27 @@ function sendFunctionList(psid) {
       template_type: "generic",
       elements: [
         {
+          title: "到底要ㄘ什麼?",
+          subtitle: "餐點產生器! 增加餐點請聯絡作者XD",
+          buttons: [
+            {
+              title: "食物",
+              type: "postback",
+              payload: "GEN_MEAL"
+            },
+            {
+              title: "飲料",
+              type: "postback",
+              payload: "GEN_DRINK"
+            },
+            {
+              title: "店家",
+              type: "postback",
+              payload: "GEN_SHOP"
+            }
+          ]
+        },
+        {
           title: "骰子拉",
           subtitle: "產生1~6隨機數字",
           buttons: [
@@ -155,8 +176,8 @@ function sendFunctionList(psid) {
         }
       ]
     }
-	};
-	sendAttachmentMessage(psid, data)
+  };
+  sendAttachmentMessage(psid, data);
 }
 
 module.exports = {

@@ -13,6 +13,12 @@ function postbackHandler(name) {
     return genRandomElementFrom('breakfast')
     case "GEN_DINNER":
     return genRandomElementFrom('dinner')
+    case "GEN_MEAL":
+    return genRandomElementFrom('meal')
+    case "GEN_DRINK":
+    return genRandomElementFrom('drink')
+    case "GEN_SHOP":
+    return genRandomElementFrom('shop')
     default:
     return null
   }
