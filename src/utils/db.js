@@ -94,7 +94,7 @@ class DB {
         SET data = jsonb_set(
           data::jsonb,
           '{elements}',
-          (data->'elements')::jsonb - '${element}'::jsonb) 
+          (data->'elements')::jsonb - '${element}') 
         WHERE data->'name' = '"${name}"';`
     
       this.client.query(query)

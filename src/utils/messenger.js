@@ -2,6 +2,8 @@ const request = require("request");
 const db = require("../utils/db.js");
 
 function sendTextMessage(sender, text) {
+  if(!text.length)
+    return 
   let messageData = { text: text };
   request(
     {
