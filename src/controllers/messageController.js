@@ -88,9 +88,12 @@ function receivedPostback(event) {
     sendFunctionList(senderID)
   } else if (payload === 'GET_STARTED'){
     db.insertData(senderID)
+      .then(r => sendTextMessage(senderID, 'Hi，可以試試打開輸入欄旁的目錄哦~'))
+      .catch(r => console.log(r))
   } else if (payload === 'GEN_CUSTOMIZED_LIST') {
     postbackHandler(senderID)
       .then(res => sendTextMessage(senderID, res))
+      .catch(console.log)
   } else if (payload === 'SHOW_CUSTOMIZED_LIST') {
     db.getData(senderID)
       .then(res => sendTextMessage(senderID, JSON.stringify(res)))
@@ -98,9 +101,8 @@ function receivedPostback(event) {
   } else {
     // Get data from general lists
     postbackHandler(payload)
-      .then(res => {
-        sendTextMessage(senderID, res)
-      })
+      .then(res => sendTextMessage(senderID, res))
+      .catch(console.log)
   }
 }
 

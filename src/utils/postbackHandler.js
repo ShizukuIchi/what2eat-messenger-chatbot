@@ -29,8 +29,11 @@ function random(from, to) {
 }
 
 async function genRandomElementFrom(name) {
-  let data = await db.getData(name)
-  return Promise.resolve(data[random(0, data.length-1)])
+  return new Promise((res, rej) => {
+    db.getData(name)
+      .then(data => res(data[random(0, data.length-1)]))
+      .catch(e => rej(e))
+  })
 }
 
 
