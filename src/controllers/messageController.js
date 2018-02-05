@@ -82,14 +82,24 @@ function receivedMessage(event) {
 function receivedPostback(event) {
   console.log('receive postback event:')
   console.log(JSON.stringify(event))
-  if (event.postback.payload === "GEN_FUNCTION_LIST"){
-    sendFunctionList(event.sender.id)
-  } else if (event.postback.payload === 'GET_STARTED'){
-    db.insertData(event.sender.id)
+  const senderID = event.sender.id
+  const payload = event.postback.payload
+  if (payload === "GEN_FUNCTION_LIST"){
+    sendFunctionList(senderID)
+  } else if (payload === 'GET_STARTED'){
+    db.insertData(senderID)
+  } else if (payload === 'GEN_CUSTOMIZED_LIST') {
+    postbackHandler(senderID)
+      .then(res => sendTextMessage(senderID, res))
+  } else if (payload === 'SHOW_CUSTOMIZED_LIST') {
+    db.getData(senderID)
+      .then(res => sendTextMessage(senderID, JSON.stringify(res)))
+      .catch(rej => sendTextMessage(senderID, '無法取得QQ'))
   } else {
-    postbackHandler(event.postback.payload)
+    // Get data from general lists
+    postbackHandler(payload)
       .then(res => {
-        sendTextMessage(event.sender.id, res)
+        sendTextMessage(senderID, res)
       })
   }
 }
