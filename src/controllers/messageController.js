@@ -54,8 +54,6 @@ function receivedAccountLinking(event){
 
 function receivedMessage(event) {
   const senderID = event.sender.id;
-  const recipientID = event.recipient.id;
-  const timeOfMessage = event.timestamp;
   const message = event.message;
   
   if(message.text[0] === '>') {
@@ -65,12 +63,18 @@ function receivedMessage(event) {
   } else if (message.text === 'p') {
     db.getDatasTable()
       .then(res => sendTextMessage(process.env.MY_PSID, JSON.stringify(res)))
-  } else {
-    if (message.text.indexOf('+') > 0){
-      let texts = message.text.split('+')
-      db.insertDataElements(texts[0], [texts[1]])
-        .then(res => sendTextMessage(senderID, '新增完成'))
+  } else if (message.text.indexOf('新增') === 0) {
+    const element = message.text.split('新增')[1]
+    if (element.length !== 0) {
+      db.insertDataElements(senderID, element)
+        .then(res => sendTextMessage(senderID, '新增完成!'))
+        .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
     }
+    // if (message.text.indexOf('+') > 0){
+    //   let texts = message.text.split('+')
+    //   db.insertDataElements(texts[0], [texts[1]])
+    //     .then(res => sendTextMessage(senderID, '新增完成'))
+    // }
   }
   console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
 }
@@ -80,6 +84,8 @@ function receivedPostback(event) {
   console.log(JSON.stringify(event))
   if (event.postback.payload === "GEN_FUNCTION_LIST"){
     sendFunctionList(event.sender.id)
+  } else if (event.postback.payload === 'GET_STARTED'){
+    db.insertData(event.sender.id)
   } else {
     postbackHandler(event.postback.payload)
       .then(res => {

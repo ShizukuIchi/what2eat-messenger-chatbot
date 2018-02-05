@@ -59,10 +59,13 @@ class DB {
         (data->'elements')::jsonb || '${JSON.stringify(elements)}'::jsonb) 
       WHERE data->'name' = '"${name}"'`
     console.log(query)
-    return new Promise(res => {
+    return new Promise((res, rej) => {
       this.client.query(query)
         .then(result => res(result))
-        .catch(e => {throw e})
+        .catch(e => {
+          rej(e);
+          throw e;
+        })
     })
   }
   async deleteDataElement(name, element) {
