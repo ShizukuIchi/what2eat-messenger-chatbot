@@ -123,7 +123,7 @@ function sendFunctionList(psid) {
       elements: [
         {
           title: "到底要ㄘ什麼?",
-          subtitle: "餐點產生器! 增加餐點請聯絡作者XD",
+          subtitle: "餐點產生器! 任何想法請聯絡作者XD",
           buttons: [
             {
               title: "食物",
@@ -155,7 +155,7 @@ function sendFunctionList(psid) {
         },
         {
           title: "早午晚餐",
-          subtitle: "測試用 可能會產生怪怪的東西",
+          subtitle: "測試用，可能會產生怪怪的東西",
           buttons: [
             {
               title: "早餐",
