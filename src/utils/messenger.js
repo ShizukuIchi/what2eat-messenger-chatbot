@@ -123,7 +123,7 @@ function sendFunctionList(psid) {
       elements: [
         {
           title: "到底要ㄘ什麼?",
-          subtitle: "餐點產生器! 任何想法請聯絡作者XD",
+          subtitle: "餐點產生器! 增加餐點請聯絡作者XD",
           buttons: [
             {
               title: "食物",
@@ -143,6 +143,23 @@ function sendFunctionList(psid) {
           ]
         },
         {
+          title: "專屬清單",
+          subtitle:
+            "只屬於你/妳的清單，直接在對話框輸入 '新增鐵板燒' 即可客製專屬清單!:",
+          buttons: [
+            {
+              title: "等等吃甚麼~?!",
+              type: "postback",
+              payload: "GEN_CUSTOMIZED_LIST"
+            },
+            {
+              title: "查看清單內容",
+              type: "postback",
+              payload: "SHOW_CUSTOMIZED_LIST"
+            }
+          ]
+        },
+        {
           title: "骰子拉",
           subtitle: "產生1~6隨機數字",
           buttons: [
@@ -154,8 +171,8 @@ function sendFunctionList(psid) {
           ]
         },
         {
-          title: "早午晚餐",
-          subtitle: "測試用，可能會產生怪怪的東西",
+          title: "ㄘㄘ什麼?",
+          subtitle: "不再煩惱，立刻產生食物！",
           buttons: [
             {
               title: "早餐",
