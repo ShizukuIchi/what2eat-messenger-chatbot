@@ -31,10 +31,6 @@ class DB {
   }
   async insertData(name, elements = []) {
     const exist = await this.isDataExist(name)
-    if(!exist){
-      console.log(`no ${name}.`)
-      return
-    }
     const query = {
       text: 'INSERT INTO datas(data) VALUES($1);',
       values: [`{"name":"${name}","elements":${JSON.stringify(data)}`]
@@ -58,7 +54,6 @@ class DB {
         '{elements}',
         (data->'elements')::jsonb || '${JSON.stringify(elements)}'::jsonb) 
       WHERE data->'name' = '"${name}"'`
-    console.log(query)
     return new Promise((res, rej) => {
       this.client.query(query)
         .then(result => res(result))

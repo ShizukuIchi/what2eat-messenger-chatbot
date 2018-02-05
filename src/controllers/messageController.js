@@ -76,7 +76,7 @@ function receivedMessage(event) {
     //     .then(res => sendTextMessage(senderID, '新增完成'))
     // }
   }
-  console.log(`message from: ${senderID} at ${timeOfMessage}: ${message.text}`)
+  console.log(`From ${senderID}: ${message.text}`)
 }
 
 function receivedPostback(event) {
