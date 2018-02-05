@@ -31,7 +31,13 @@ class DB {
   isDataExist(name) {
     return new Promise((res, rej) => {
       this.client.query(`SELECT EXISTS(SELECT 1 FROM datas WHERE data->'name' = '"${name}"' )`)
-        .then(result => {console.log(result);res(result.rows[0].exists)})
+        .then(result => {
+          if(result.rows[0].exists)
+            console.log(`${name} exists.`)
+          else 
+            console.log(`${name} doesn't exists`)
+          res(result.rows[0].exists)
+        })
         .catch(e => {
           rej(e)
           throw e;
@@ -46,8 +52,8 @@ class DB {
         rej(`${name} already exists.`)
       }
       const query = {
-        text: 'INSERT INTO datas(data) VALUES($1);',
-        values: [`{"name":"${name}","elements":'${JSON.stringify(data)}'`]
+        text: `INSERT INTO datas(data) VALUES('$1');`,
+        values: [`{"name":"${name}","elements":${JSON.stringify(data)}`]
       }
       this.client.query(query)
         .then(result => res(result.rows))
