@@ -64,17 +64,21 @@ function receivedMessage(event) {
     db.getDatasTable()
       .then(res => sendTextMessage(process.env.MY_PSID, JSON.stringify(res)))
   } else if (message.text.indexOf('新增') === 0) {
-    const element = message.text.split('新增')[1]
-    if (element.length !== 0) {
-      db.insertDataElements(senderID, element)
-        .then(res => sendTextMessage(senderID, '新增完成!'))
-        .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
+    if(message.text.indexOf('大家的') === 2) {
+      const element = message.text.split('新增大家的')[1]
+      if (element.length !== 0) {
+        db.insertDataElements('public', element)
+          .then(res => sendTextMessage(senderID, '新增完成!'))
+          .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
+      }
+    } else {
+      const element = message.text.split('新增')[1]
+      if (element.length !== 0) {
+        db.insertDataElements(senderID, element)
+          .then(res => sendTextMessage(senderID, '新增完成!'))
+          .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
+      }
     }
-    // if (message.text.indexOf('+') > 0){
-    //   let texts = message.text.split('+')
-    //   db.insertDataElements(texts[0], [texts[1]])
-    //     .then(res => sendTextMessage(senderID, '新增完成'))
-    // }
   }
   console.log(`From ${senderID}: ${message.text}`)
 }
