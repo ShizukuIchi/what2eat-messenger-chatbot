@@ -30,8 +30,8 @@ class DB {
     }) 
   }
   async insertData(name, elements = []) {
+    const exist = await this.isDataExist(name)
     return new Promise((res, rej) => {
-      const exist = await this.isDataExist(name)
       if (exist) {
         console.log(`${name} already exists.`)
         rej(`${name} already exists.`)
