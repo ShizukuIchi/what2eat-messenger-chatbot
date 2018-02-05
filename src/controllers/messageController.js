@@ -96,7 +96,7 @@ function receivedPostback(event) {
       .catch(console.log)
   } else if (payload === 'SHOW_CUSTOMIZED_LIST') {
     db.getData(senderID)
-      .then(res => sendTextMessage(senderID, JSON.stringify(res)))
+      .then(res => sendTextMessage(senderID, res.toString()))
       .catch(rej => sendTextMessage(senderID, '無法取得QQ'))
   } else {
     // Get data from general lists
