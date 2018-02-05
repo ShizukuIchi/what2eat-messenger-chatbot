@@ -2,8 +2,10 @@ const request = require("request");
 const db = require("../utils/db.js");
 
 function sendTextMessage(sender, text) {
-  if(!text.length)
+  if(!text.length){
+    throw new Error('None or empty string text provided.')
     return 
+  }
   let messageData = { text: text };
   request(
     {
