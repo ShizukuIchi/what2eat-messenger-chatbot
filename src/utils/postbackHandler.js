@@ -1,4 +1,3 @@
-const datas = require('./datas');
 const db = require("../utils/db.js")
 
 function postbackHandler(name) {
