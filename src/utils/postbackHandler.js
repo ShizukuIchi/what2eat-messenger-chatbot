@@ -4,7 +4,7 @@ const db = require("../utils/db.js")
 function postbackHandler(name) {
   switch(name) {
     case 'GEN_DICE_NUMBER':
-    return Promise.resolve(random(1,6)) 
+    return Promise.resolve(String(random(1,6)))
     case 'GEN_PUBLIC_LIST':
     return genRandomElementFrom('public')
     case "GEN_MEAL":
