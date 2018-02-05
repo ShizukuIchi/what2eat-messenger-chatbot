@@ -49,15 +49,16 @@ class DB {
     return new Promise((res, rej) => {
       if (exist) {
         console.log(`${name} already exists.`)
-        return rej(`${name} already exists.`)
+        rej(`${name} already exists.`)
+      } else {
+        const query = `INSERT INTO datas(data) VALUES('{"name":"${name}", "elements":${JSON.stringify(elements)}}')`
+        this.client.query(query)
+          .then(result => res(result.rows))
+          .catch(e => {
+            rej(e)
+            throw e
+          })
       }
-      const query = `INSERT INTO datas(data) VALUES('{"name":"${name}", "elements":${JSON.stringify(elements)}}')`
-      this.client.query(query)
-        .then(result => res(result.rows))
-        .catch(e => {
-          rej(e)
-          throw e
-        })
     })
   }
   async insertDataElements(name, elements) {
@@ -65,21 +66,22 @@ class DB {
     return new Promise((res, rej) => {
       if(!exist) {
         console.log(`no ${name}.`)
-        return rej(`no ${name}`)
+        rej(`no ${name}`)
+      } else {
+        const query = `
+          UPDATE datas
+          SET data = jsonb_set(
+            data::jsonb,
+            '{elements}',
+            (data->'elements')::jsonb || '${JSON.stringify(elements)}'::jsonb) 
+          WHERE data->'name' = '"${name}"'`
+        this.client.query(query)
+          .then(result => res(result))
+          .catch(e => {
+            rej(e);
+            throw e;
+          })
       }
-      const query = `
-        UPDATE datas
-        SET data = jsonb_set(
-          data::jsonb,
-          '{elements}',
-          (data->'elements')::jsonb || '${JSON.stringify(elements)}'::jsonb) 
-        WHERE data->'name' = '"${name}"'`
-      this.client.query(query)
-        .then(result => res(result))
-        .catch(e => {
-          rej(e);
-          throw e;
-        })
     })
   }
   async deleteDataElement(name, element) {
@@ -88,21 +90,22 @@ class DB {
       if(!exist) {
         console.log(`no ${name}.`)
         return rej(`no ${name}`)
+      } else {
+        const query = `
+          UPDATE datas
+          SET data = jsonb_set(
+            data::jsonb,
+            '{elements}',
+            (data->'elements')::jsonb - '${element}') 
+          WHERE data->'name' = '"${name}"';`
+      
+        this.client.query(query)
+          .then(result => res(result))
+          .catch(e => {
+            rej(e)
+            throw e
+          })
       }
-      const query = `
-        UPDATE datas
-        SET data = jsonb_set(
-          data::jsonb,
-          '{elements}',
-          (data->'elements')::jsonb - '${element}') 
-        WHERE data->'name' = '"${name}"';`
-    
-      this.client.query(query)
-        .then(result => res(result))
-        .catch(e => {
-          rej(e)
-          throw e
-        })
     })
   }
 
