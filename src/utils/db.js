@@ -51,10 +51,7 @@ class DB {
         console.log(`${name} already exists.`)
         rej(`${name} already exists.`)
       }
-      const query = {
-        text: `INSERT INTO datas(data) VALUES('$1');`,
-        values: [`{"name":"${name}","elements":${JSON.stringify(data)}`]
-      }
+      const query = `INSERT INTO datas(data) VALUES('{"name":"${name}", "elements":${JSON.stringify(elements)}}')`
       this.client.query(query)
         .then(result => res(result.rows))
         .catch(e => {
