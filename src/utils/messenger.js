@@ -154,8 +154,8 @@ function sendFunctionList(psid) {
           ]
         },
         {
-          title: "ㄘㄘ什麼?",
-          subtitle: "不再煩惱，立刻產生食物！",
+          title: "早午晚餐",
+          subtitle: "測試用 可能會產生怪怪的東西",
           buttons: [
             {
               title: "早餐",
