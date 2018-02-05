@@ -145,10 +145,12 @@ function sendFunctionList(psid) {
         {
           title: "專屬清單",
           subtitle:
-            "只屬於你/妳的清單，直接在對話框輸入 '新增鐵板燒' 即可客製專屬清單!:",
+            `只屬於你/妳的清單，
+            直接在對話框輸入 '新增鐵板燒'，
+            即可客製專屬清單!:`,
           buttons: [
             {
-              title: "等等吃甚麼~?!",
+              title: "等等吃甚麼～？",
               type: "postback",
               payload: "GEN_CUSTOMIZED_LIST"
             },

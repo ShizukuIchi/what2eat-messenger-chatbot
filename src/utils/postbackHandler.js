@@ -18,7 +18,7 @@ function postbackHandler(name) {
     case "GEN_SHOP":
     return genRandomElementFrom('shop')
     default:
-    return null
+    return genRandomElementFrom(name)
   }
 }
 
