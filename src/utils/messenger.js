@@ -153,10 +153,11 @@ function sendFunctionList(psid) {
           subtitle:
             `只屬於你/妳的清單，
             直接在對話框輸入如： 新增鐵板燒，
-            即可客製專屬清單！`,
+            即可客製專屬清單！
+            ※ 輸入 刪除XXX 可以移除品項哦`,
           buttons: [
             {
-              title: "等等吃甚麼～？",
+              title: "我想要吃",
               type: "postback",
               payload: "GEN_CUSTOMIZED_LIST"
             },

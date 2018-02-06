@@ -73,23 +73,23 @@ function receivedMessage(event) {
       const element = message.text.split('新增大家的')[1]
       if (element.length !== 0) {
         db.insertDataElements('public', element)
-          .then(res => sendTextMessage(senderID, '新增完成!'))
-          .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
+          .then(res => sendTextMessage(senderID, `現在大家都會看到"${element}"囉`))
+          .catch(rej => sendTextMessage(senderID, 'Sorry，有地方出錯啦'))
       }
     } else {
       const element = message.text.split('新增')[1]
       if (element.length !== 0) {
         db.insertDataElements(senderID, element)
-          .then(res => sendTextMessage(senderID, '新增完成!'))
-          .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
+          .then(res => sendTextMessage(senderID, `"${element}"成功加入專屬清單`))
+          .catch(rej => sendTextMessage(senderID, 'Sorry，好像哪裡出了問題'))
       }
     }
   } else if (message.text.indexOf('刪除') === 0) {
-    const element = message.text.split('新增')[1]
+    const element = message.text.split('刪除')[1]
       if (element.length !== 0) {
-        db.insertDataElements(senderID, element)
-          .then(res => sendTextMessage(senderID, '成功刪除!'))
-          .catch(rej => sendTextMessage(senderID, 'Sorry，刪除失敗'))
+        db.deleteDataElement(senderID, element)
+          .then(res => sendTextMessage(senderID, `"${element}"不在專屬清單內囉`))
+          .catch(rej => sendTextMessage(senderID, 'Sorry，好像哪裡怪怪的'))
       }
   } else {
     sendTextMessage(senderID, '請善用按鈕哦～')
