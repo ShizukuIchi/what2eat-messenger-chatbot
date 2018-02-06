@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const crypto = require('crypto');
 const router = require("./src/routers");
 const { setupGetStart } = require("./src/utils/messenger.js")
-const { defaultMenuObject } = require("./src/utils/menu.js")
 
 function getSignature(buf) {
   let hmac = crypto.createHmac("sha1", process.env.FB_APP_SECRET);

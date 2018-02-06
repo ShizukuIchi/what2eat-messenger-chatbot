@@ -1,4 +1,3 @@
-const { Menu } = require("../utils/menu.js")
 const { sendTextMessage, sendSetup, sendFunctionList } = require("../utils/messenger.js")
 const db = require("../utils/db.js")
 const postbackHandler = require("../utils/postbackHandler.js")
