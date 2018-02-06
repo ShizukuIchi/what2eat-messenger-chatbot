@@ -5,6 +5,10 @@ function sendTextMessage(sender, text) {
   if(!text.length){
     throw new Error('None or empty string text provided.')
     return 
+  } 
+  if(sender === process.env.APP_PSID) {
+    console.log(`${text} to myself.`)
+    return
   }
   let messageData = { text: text };
   request(
@@ -27,6 +31,10 @@ function sendTextMessage(sender, text) {
   );
 }
 function sendAttachmentMessage(sender, data) {
+  if(sender === process.env.APP_PSID) {
+    console.log(`${data} to myself.`)
+    return
+  }
   let messageData = { attachment: data };
   request(
     {
