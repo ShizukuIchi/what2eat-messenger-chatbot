@@ -31,8 +31,14 @@ function webhook(req, res){
 }
 
 function messagingEventHandler(event) {
-  if (event.message && event.message.text) {
-    receivedMessage(event);
+  if (event.message) {
+    if (event.message.text) {
+      receivedMessage(event);
+    } else if (event.message.sticker_id) {
+      receivedSticker(event);
+    } else {
+      console.log('Receive: ',event)
+    }
   } else if (event.account_linking) {
     receivedAccountLinking(event);
   } else if (event.postback) {
@@ -78,8 +84,21 @@ function receivedMessage(event) {
           .catch(rej => sendTextMessage(senderID, 'Sorry，新增失敗'))
       }
     }
+  } else if (message.text.indexOf('刪除') === 0) {
+    const element = message.text.split('新增')[1]
+      if (element.length !== 0) {
+        db.insertDataElements(senderID, element)
+          .then(res => sendTextMessage(senderID, '成功刪除!'))
+          .catch(rej => sendTextMessage(senderID, 'Sorry，刪除失敗'))
+      }
+  } else {
+    sendTextMessage(senderID, '請善用按鈕哦～')
   }
   console.log(`From ${senderID}: ${message.text}`)
+}
+
+function receivedSticker(event) {
+  sendTextMessage(event.sender.id, '貼圖不能吃啦')
 }
 
 function receivedPostback(event) {

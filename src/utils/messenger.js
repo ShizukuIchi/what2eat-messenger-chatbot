@@ -126,8 +126,10 @@ function sendFunctionList(psid) {
       template_type: "generic",
       elements: [
         {
-          title: "到底要ㄘ什麼?",
-          subtitle: "餐點產生器! 增加餐點請聯絡作者XD",
+          title: "等等吃什麼？",
+          subtitle: `
+            餐點產生器！
+            增加餐點請聯絡作者XD`,
           buttons: [
             {
               title: "食物",
@@ -150,7 +152,7 @@ function sendFunctionList(psid) {
           title: "專屬清單",
           subtitle:
             `只屬於你/妳的清單，
-            直接在對話框輸入 '新增鐵板燒'，
+            直接在對話框輸入如： 新增鐵板燒，
             即可客製專屬清單！`,
           buttons: [
             {
@@ -169,7 +171,7 @@ function sendFunctionList(psid) {
           title: "公共清單",
           subtitle: `
             以 '新增大家的XXX' 擴充清單，
-            可能產生怪怪的東西XD
+            裡面可能有怪怪的東西XD
             `,
           buttons: [
             {
@@ -180,11 +182,14 @@ function sendFunctionList(psid) {
           ]
         },
         {
-          title: "骰子啦",
-          subtitle: "產生1~6隨機數字",
+          title: "骰子",
+          subtitle: `
+            按太多下結果不知道要吃什麼了嗎？
+            骰子為您準備好了！
+          `,
           buttons: [
             {
-              title: "GO!!!!",
+              title: "就決定是你了！",
               type: "postback",
               payload: "GEN_DICE_NUMBER"
             }
