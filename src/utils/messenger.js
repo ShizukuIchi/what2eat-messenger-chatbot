@@ -129,85 +129,76 @@ function getIdFromToken(token) {
 
 function sendFunctionList(psid) {
   const data = {
-    type: "template",
-    payload: {
-      template_type: "generic",
-      elements: [
+    "type": "template",
+    "payload": {
+      "template_type": "generic",
+      "elements": [
         {
-          title: "等等吃什麼？",
-          subtitle: `
-            餐點產生器！
-            增加餐點請聯絡作者XD`,
-          buttons: [
+          "title": "等等吃什麼？",
+          "subtitle": "增加餐點請聯絡作者XD",
+          "image_url":"https://i.imgur.com/hkS4UNk.jpg",
+          "buttons": [
             {
-              title: "食物",
-              type: "postback",
-              payload: "GEN_MEAL"
+              "title": "食物",
+              "type": "postback",
+              "payload": "GEN_MEAL"
             },
             {
-              title: "飲料",
-              type: "postback",
-              payload: "GEN_DRINK"
+              "title": "飲料",
+              "type": "postback",
+              "payload": "GEN_DRINK"
             },
             {
-              title: "店家",
-              type: "postback",
-              payload: "GEN_SHOP"
+              "title": "店家",
+              "type": "postback",
+              "payload": "GEN_SHOP"
             }
           ]
         },
         {
-          title: "專屬清單",
-          subtitle:
-            `
-            只屬於你/妳的菜單，
-            輸入如 新增鐵板燒
-            即可客製專屬清單！
-            ※ 可輸入 刪除XXX`,
-          buttons: [
-            {
-              title: "我想要吃...",
-              type: "postback",
-              payload: "GEN_CUSTOMIZED_LIST"
-            },
-            {
-              title: "查看清單內容",
-              type: "postback",
-              payload: "SHOW_CUSTOMIZED_LIST"
-            }
-          ]
+          "title": "專屬清單",
+          "subtitle": "只屬於你/妳的菜單，\n直接在對話框輸入 '新增鐵板燒' 等等，\n即可客製專屬清單！",
+          "image_url": "https://i.imgur.com/ihy6pqc.jpg",
+          "buttons": [
+         {
+            "title": "我想吃....",
+            "type": "postback",
+            "payload": "GEN_CUSTOMIZED_LIST"
+         },
+         {
+           "title": "看看我的清單有什麼",
+           "type": "postback",
+           "payload": "SHOW_CUSTOMIZED_LIST"
+         }
+        ]
+        },
+                  {
+          "title": "公共清單",
+          "subtitle": "以 '新增大家的XXX' 擴充清單，\n裡面可能有怪怪的東西XD",
+          "image_url":"https://i.imgur.com/XycMyp8.jpg",
+          "buttons": [
+          {
+            "title": "大家都想吃什麼？",
+            "type": "postback",
+            "payload": "GEN_PUBLIC_LIST"
+          }
+        ]       
         },
         {
-          title: "公共清單",
-          subtitle: `
-            以 '新增大家的XXX' 擴充清單，
-            裡面可能有怪怪的東西XD
-            `,
-          buttons: [
-            {
-              title: "大家都想吃什麼？",
-              type: "postback",
-              payload: "GEN_PUBLIC_LIST"
-            }
-          ]
-        },
-        {
-          title: "骰子",
-          subtitle: `
-            按太多下結果不知道要吃什麼了嗎？
-            骰子為您準備好了！
-          `,
-          buttons: [
-            {
-              title: "就決定是你了！",
-              type: "postback",
-              payload: "GEN_DICE_NUMBER"
-            }
-          ]
+          "title": "骰子",
+          "subtitle": "按太多下結果不知道要吃什麼了嗎？\n骰子為您準備好了！",
+          "image_url": "https://i.imgur.com/yfOce3s.jpg",
+          "buttons": [
+         {
+            "title": "就決定是你了！",
+            "type": "postback",
+            "payload": "GEN_DICE_NUMBER"
+          }
+        ]
         }
       ]
     }
-  };
+  }
   sendAttachmentMessage(psid, data);
 }
 
